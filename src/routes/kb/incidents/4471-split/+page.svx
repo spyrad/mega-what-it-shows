@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · three problems, not one'
+title: '#4471 · two problems, not one'
 owner: Damian Spyra
 status: proposed
 reviewed: 2026-10-28
@@ -15,19 +15,18 @@ signature: Damian Spyra
 
 [#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. The reports say otherwise.
 They were merged by subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and every
-subject says "wrong day". Behind that subject sit three different bugs. The queued parser fix
+subject says "wrong day". Behind that subject sit two different bugs. The queued parser fix
 closes only the first.
 
 <ProblemTable
   ticket={4471}
   tickets={{
     parser: 'https://github.com/spyrad/mega-what-it-shows/issues/1',
-    hint: 'https://github.com/spyrad/mega-what-it-shows/issues/2',
-    'one-day': 'https://github.com/spyrad/mega-what-it-shows/issues/3'
+    hint: 'https://github.com/spyrad/mega-what-it-shows/issues/2'
   }}
 />
 
-## The three problems
+## The two problems
 
 - **`parser`:** the shared parser reads every date month first. Our tenants write the day first,
   so "7 April" becomes "4 July". App, email, and the `booking-v2` form, whose hint asks for the
@@ -35,20 +34,19 @@ closes only the first.
 - **`hint`:** the `booking-v3` form prints `MM/DD/YYYY` under its date field. People type the month
   first, as told, and the form reads the day first. Same symptom, different code: only the three
   tenants on `booking-v3`, only through the form.
-- **`one-day`:** the date moves by one day, it does not flip. A client in Lisbon gets Tuesday, a
-  client in Toronto gets Monday; an invite arrives before the booking. That is time zones. The desk
-  already read these as one-day moves (`desk-notes.json`) but counted them under `parser`.
 
 <Callout kind="warn">
 Do not count by intake tag. <code>intakeTag</code> is guessed from the reporter's browser and
 disagrees with the cause in dozens of reports. The cause comes from the tenant and the channel
-(<code>causes.ts</code>); the one-day moves come from the desk's own reading.
+(<code>causes.ts</code>).
 </Callout>
 
 ## What changes for the desk
 
-- #4471 stays open until all three tickets are closed. "Known" was true for one of three.
+- #4471 stays open until both tickets are closed. "Known" was true for one of two.
 - Merging on subject alone hides causes that share a symptom. Before marking a big ticket known,
   split it by cause with this table.
+- The one-day moves in the footnote may be a third bug (time zones). Check them again once the
+  parser fix is out.
 
 <RenderStamp {signature} />
