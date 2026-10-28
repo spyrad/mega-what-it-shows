@@ -4,7 +4,7 @@ title: '#4471 · two problems, not one'
 owner: Damian Spyra
 status: resolved
 reviewed: 2026-10-28
-signature: spyrad
+signature: 'v1.eyJzdWIiOiIxMzU5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyMTY1OTIsImV4cCI6MTc5MzMwMjk5Mn0._fz_g0tlUzn7hCBKKKOFcHnzsKVTLT8hP6fY2dDl_w0'
 ---
 
 <script>
