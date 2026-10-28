@@ -22,6 +22,8 @@ first. The fix is queued.
 Known. One issue, one fix queued.
 </Callout>
 
+Split by cause, with a ticket per problem: [#4471 · two problems, not one](/kb/incidents/4471-split).
+
 ## What was merged
 
 <CauseTable ticket={4471} />
