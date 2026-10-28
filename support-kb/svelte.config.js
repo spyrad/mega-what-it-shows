@@ -8,8 +8,9 @@ export default {
   extensions: ['.svelte', '.svx'],
   preprocess: [vitePreprocess(), mdsvex({ extensions: ['.svx'], layout: { runbook: fileURLToPath(new URL('./src/lib/layouts/runbook.svelte', import.meta.url)) } })],
   kit: {
-    adapter: adapter({ pages: 'rendered', assets: 'rendered' }),
+    adapter: adapter({ pages: process.env.OUT_DIR ?? 'rendered', assets: process.env.OUT_DIR ?? 'rendered' }),
+    paths: { base: process.env.BASE_PATH ?? '' },
     alias: { '#lib': 'src/lib' },
-    prerender: { entries: ['/kb', '/kb/incidents/4471-split'] }
+    prerender: { entries: ['*'], handleHttpError: 'warn' }
   }
 };

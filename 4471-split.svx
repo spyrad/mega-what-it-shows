@@ -1,0 +1,54 @@
+---
+layout: runbook
+title: '#4471 · two problems, not one'
+owner: Damian Spyra
+status: resolved
+reviewed: 2026-10-28
+signature: spyrad
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) was marked known: one issue, one fix queued. The reports said otherwise.
+They were merged by subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and every
+subject says "wrong day". Behind that subject sat two different bugs, each with its own ticket.
+Engineering closed #4471 on 5 October: the parser is fixed, the hint is won't fix.
+
+<ProblemTable
+  ticket={4471}
+  tickets={{
+    parser: 'https://github.com/spyrad/mega-what-it-shows/issues/1',
+    hint: 'https://github.com/spyrad/mega-what-it-shows/issues/2'
+  }}
+/>
+
+## The two problems
+
+- **`parser`:** the shared parser reads every date month first. Our tenants write the day first,
+  so "7 April" becomes "4 July". App, email, and the `booking-v2` form, whose hint asks for the
+  day first.
+- **`hint`:** the `booking-v3` form prints `MM/DD/YYYY` under its date field. People type the month
+  first, as told, and the form reads the day first. Same symptom, different code: only the three
+  tenants on `booking-v3`, only through the form.
+
+<Callout kind="warn">
+Do not count by intake tag. <code>intakeTag</code> is guessed from the reporter's browser and
+disagrees with the cause in dozens of reports. The cause comes from the tenant and the channel
+(<code>causes.ts</code>).
+</Callout>
+
+## What changes for the desk
+
+- `parser` ([#1](https://github.com/spyrad/mega-what-it-shows/issues/1)): fixed — `fix(dates): parse dd/mm for eu locales`.
+- `hint` ([#2](https://github.com/spyrad/mega-what-it-shows/issues/2)): won't fix — the `booking-v3` form is retired.
+- "Known" was true for one of two.
+- Merging on subject alone hides causes that share a symptom. Before marking a big ticket known,
+  split it by cause with this table.
+- The one-day moves in the footnote may be a third bug (time zones). Check whether they still
+  come in now that the parser fix is out.
+
+<RenderStamp {signature} />
