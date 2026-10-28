@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · two problems, not one'
 owner: Damian Spyra
-status: proposed
+status: resolved
 reviewed: 2026-10-28
 signature: spyrad
 ---
@@ -13,10 +13,10 @@ signature: spyrad
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. The reports say otherwise.
+[#4471](/kb/incidents/4471) was marked known: one issue, one fix queued. The reports said otherwise.
 They were merged by subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and every
-subject says "wrong day". Behind that subject sit two different bugs. The queued parser fix
-closes only the first.
+subject says "wrong day". Behind that subject sat two different bugs, each with its own ticket.
+Engineering closed #4471 on 5 October: the parser is fixed, the hint is won't fix.
 
 <ProblemTable
   ticket={4471}
@@ -43,10 +43,12 @@ disagrees with the cause in dozens of reports. The cause comes from the tenant a
 
 ## What changes for the desk
 
-- #4471 stays open until both tickets are closed. "Known" was true for one of two.
+- `parser` ([#1](https://github.com/spyrad/mega-what-it-shows/issues/1)): fixed — `fix(dates): parse dd/mm for eu locales`.
+- `hint` ([#2](https://github.com/spyrad/mega-what-it-shows/issues/2)): won't fix — the `booking-v3` form is retired.
+- "Known" was true for one of two.
 - Merging on subject alone hides causes that share a symptom. Before marking a big ticket known,
   split it by cause with this table.
-- The one-day moves in the footnote may be a third bug (time zones). Check them again once the
-  parser fix is out.
+- The one-day moves in the footnote may be a third bug (time zones). Check whether they still
+  come in now that the parser fix is out.
 
 <RenderStamp {signature} />
